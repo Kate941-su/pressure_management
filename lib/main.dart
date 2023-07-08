@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/main_page/main_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MyApp()));
+  initializeDateFormatting('ja')
+      .then((_) => runApp(const ProviderScope(child: MyApp())));
 }
 
 class MyApp extends ConsumerWidget {
@@ -11,11 +15,29 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      title: 'Instagram Clone',
-      theme: ThemeData.dark(),
+      title: 'Pressure Management',
+      theme: ThemeData.light(),
       home: Scaffold(
         appBar: AppBar(),
-        body: Container(),
+        body: MainPage(),
+        bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.keyboard_return),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.auto_graph),
+              label: 'Open Dialog',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add_circle_outline),
+              label: '',
+            ),
+          ],
+        ),
       ),
     );
   }
