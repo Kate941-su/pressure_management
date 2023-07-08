@@ -6,7 +6,6 @@ class PressureNotifier
   PressureNotifier() : super({});
 
   void add(DateTime dateTime, PressureItem pressureItem) {
-    Map<DateTime, List<PressureItem>> newState = {};
     if (state.isNotEmpty) {
       state.forEach((key, value) {
         if (key == dateTime) {
