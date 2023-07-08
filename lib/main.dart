@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/main_page/main_page.dart';
+import 'package:flutter_training/pressure/pressure_item.dart';
+import 'package:flutter_training/pressure/pressure_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -37,6 +39,13 @@ class MyApp extends ConsumerWidget {
               label: '',
             ),
           ],
+        ),
+        floatingActionButton: IconButton(
+          onPressed: () {
+            ref.read(pressureProvider.notifier).testAdd(DateTime(2023, 7, 10),
+                PressureItem(maxPressure: 130, minPressure: 100, pulse: 90));
+          },
+          icon: const Icon(Icons.add_circle_outline),
         ),
       ),
     );

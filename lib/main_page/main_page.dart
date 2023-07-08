@@ -7,15 +7,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../pressure/mocked_pressure_items_map.dart';
 
 class MainPage extends ConsumerWidget {
-  MainPage({super.key});
-
-  // has a state
-  final sampleEvents = {
-    DateTime.utc(2023, 8, 7): ['firstEvent', 'secondEvent'],
-    DateTime.utc(2023, 8, 5): ['thirdEvent', 'fourthEvent']
-  };
-
-  // has a state
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
