@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/datetime/datetime_provider.dart';
 import 'package:flutter_training/main_page/calendar_item.dart';
 import 'package:table_calendar/table_calendar.dart';
-
+import '../pressure/mocked_pressure_items_map.dart';
 class MainPage extends ConsumerWidget {
   MainPage({super.key});
 
@@ -27,7 +27,7 @@ class MainPage extends ConsumerWidget {
               return CalendarItem(day: day);
             }),
             eventLoader: (date) {
-              return sampleEvents[date] ?? [];
+              return mockedPressureItemsMap[date] ?? [];
             },
             availableGestures: AvailableGestures.all,
             selectedDayPredicate: (day) => day == focusedDay,
@@ -42,9 +42,25 @@ class MainPage extends ConsumerWidget {
             onDaySelected: (selectDay, focusDay) {
               ref.read(focusDayProvider.notifier).setDatetime(selectDay);
             }),
-        Expanded(child: Text(
-            sampleEvents[selectedDay] != null ? sampleEvents[selectedDay]![0] : ''
-        ))
+        Expanded(
+          child: ListView.builder(
+            itemCount: mockedPressureItemsMap[DateTime(2023, 8, 5)]?.length,
+            itemBuilder: (context, index) {
+              final pressureItem = mockedPressureItemsMap[DateTime(2023, 8, 5)]?[index];
+              return Card(
+                child: ListTile(
+                  title: Column(
+                    children: [
+                      Text('max pressure : ${pressureItem!.maxPressure}'),
+                      Text('min pressure : ${pressureItem!.minPressure}'),
+                      Text('pulse : ${pressureItem!.pulse}'),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ],
     );
   }
