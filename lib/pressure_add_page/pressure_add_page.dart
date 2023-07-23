@@ -42,22 +42,35 @@ class PressureAddPage extends HookConsumerWidget {
               margin: EdgeInsets.all(8.0),
               decoration: BoxDecoration(color: Colors.cyan),
               child: TextButton(
-                  onPressed: () {
-                    ref.read(
-                        pressureProvider.notifier).add(
-                        dateTime: selectedDay,
-                        pressureItem:PressureItem(
-                          maxPressure: int.parse(maxPressureTextController.text),
-                          minPressure: int.parse(minPressureTextController.text),
-                          pulse: int.parse(pulseTextController.text),
-                    ));
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Dialog(
+                  onPressed: () async {
+                    if (maxPressureTextController.text.isEmpty ||
+                        minPressureTextController.text.isEmpty ||
+                        pulseTextController.text.isEmpty) {
+                      await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Dialog(
+                              child: Text('you have to fill all items'),
+                            );
+                          });
+                    } else {
+                      ref.read(pressureProvider.notifier).add(
+                          dateTime: selectedDay,
+                          pressureItem: PressureItem(
+                            maxPressure:
+                                int.parse(maxPressureTextController.text),
+                            minPressure:
+                                int.parse(minPressureTextController.text),
+                            pulse: int.parse(pulseTextController.text),
+                          ));
+                      await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Dialog(
                               child: Text('you put item'),
-                          );
-                        });
+                            );
+                          });
+                    }
                   },
                   child: Text('submit')))
         ],
