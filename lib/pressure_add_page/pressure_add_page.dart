@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/datetime/datetime_provider.dart';
 import 'package:flutter_training/pressure/pressure_item.dart';
 import 'package:flutter_training/pressure/pressure_provider.dart';
 import 'package:flutter_training/pressure_add_page/pressure_add_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:uuid/uuid.dart';
 
 class PressureAddPage extends HookConsumerWidget {
   PressureAddPage({super.key});
@@ -39,8 +39,8 @@ class PressureAddPage extends HookConsumerWidget {
             controller: pulseTextController,
           ),
           Container(
-              margin: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(color: Colors.cyan),
+              margin: const EdgeInsets.all(8.0),
+              decoration: const BoxDecoration(color: Colors.cyan),
               child: TextButton(
                   onPressed: () async {
                     if (maxPressureTextController.text.isEmpty ||
@@ -49,7 +49,7 @@ class PressureAddPage extends HookConsumerWidget {
                       await showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return Dialog(
+                            return  const Dialog(
                               child: Text('you have to fill all items'),
                             );
                           });
@@ -57,6 +57,7 @@ class PressureAddPage extends HookConsumerWidget {
                       ref.read(pressureProvider.notifier).add(
                           dateTime: selectedDay,
                           pressureItem: PressureItem(
+                            uuid: const Uuid().v4(),
                             maxPressure:
                                 int.parse(maxPressureTextController.text),
                             minPressure:
@@ -66,13 +67,13 @@ class PressureAddPage extends HookConsumerWidget {
                       await showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return Dialog(
+                            return const Dialog(
                               child: Text('you put item'),
                             );
                           });
                     }
                   },
-                  child: Text('submit')))
+                  child: const Text('submit')))
         ],
       ),
     );

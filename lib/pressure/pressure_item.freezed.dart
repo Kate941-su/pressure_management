@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PressureItem {
+  String? get uuid => throw _privateConstructorUsedError;
   int? get maxPressure => throw _privateConstructorUsedError;
   int? get minPressure => throw _privateConstructorUsedError;
   int? get pulse => throw _privateConstructorUsedError;
@@ -31,7 +32,7 @@ abstract class $PressureItemCopyWith<$Res> {
           PressureItem value, $Res Function(PressureItem) then) =
       _$PressureItemCopyWithImpl<$Res, PressureItem>;
   @useResult
-  $Res call({int? maxPressure, int? minPressure, int? pulse});
+  $Res call({String? uuid, int? maxPressure, int? minPressure, int? pulse});
 }
 
 /// @nodoc
@@ -47,11 +48,16 @@ class _$PressureItemCopyWithImpl<$Res, $Val extends PressureItem>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uuid = freezed,
     Object? maxPressure = freezed,
     Object? minPressure = freezed,
     Object? pulse = freezed,
   }) {
     return _then(_value.copyWith(
+      uuid: freezed == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String?,
       maxPressure: freezed == maxPressure
           ? _value.maxPressure
           : maxPressure // ignore: cast_nullable_to_non_nullable
@@ -76,7 +82,7 @@ abstract class _$$_PressureItemCopyWith<$Res>
       __$$_PressureItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? maxPressure, int? minPressure, int? pulse});
+  $Res call({String? uuid, int? maxPressure, int? minPressure, int? pulse});
 }
 
 /// @nodoc
@@ -90,11 +96,16 @@ class __$$_PressureItemCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uuid = freezed,
     Object? maxPressure = freezed,
     Object? minPressure = freezed,
     Object? pulse = freezed,
   }) {
     return _then(_$_PressureItem(
+      uuid: freezed == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String?,
       maxPressure: freezed == maxPressure
           ? _value.maxPressure
           : maxPressure // ignore: cast_nullable_to_non_nullable
@@ -114,8 +125,11 @@ class __$$_PressureItemCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PressureItem implements _PressureItem {
-  const _$_PressureItem({this.maxPressure, this.minPressure, this.pulse});
+  const _$_PressureItem(
+      {this.uuid, this.maxPressure, this.minPressure, this.pulse});
 
+  @override
+  final String? uuid;
   @override
   final int? maxPressure;
   @override
@@ -125,7 +139,7 @@ class _$_PressureItem implements _PressureItem {
 
   @override
   String toString() {
-    return 'PressureItem(maxPressure: $maxPressure, minPressure: $minPressure, pulse: $pulse)';
+    return 'PressureItem(uuid: $uuid, maxPressure: $maxPressure, minPressure: $minPressure, pulse: $pulse)';
   }
 
   @override
@@ -133,6 +147,7 @@ class _$_PressureItem implements _PressureItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PressureItem &&
+            (identical(other.uuid, uuid) || other.uuid == uuid) &&
             (identical(other.maxPressure, maxPressure) ||
                 other.maxPressure == maxPressure) &&
             (identical(other.minPressure, minPressure) ||
@@ -141,7 +156,8 @@ class _$_PressureItem implements _PressureItem {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, maxPressure, minPressure, pulse);
+  int get hashCode =>
+      Object.hash(runtimeType, uuid, maxPressure, minPressure, pulse);
 
   @JsonKey(ignore: true)
   @override
@@ -152,10 +168,13 @@ class _$_PressureItem implements _PressureItem {
 
 abstract class _PressureItem implements PressureItem {
   const factory _PressureItem(
-      {final int? maxPressure,
+      {final String? uuid,
+      final int? maxPressure,
       final int? minPressure,
       final int? pulse}) = _$_PressureItem;
 
+  @override
+  String? get uuid;
   @override
   int? get maxPressure;
   @override
