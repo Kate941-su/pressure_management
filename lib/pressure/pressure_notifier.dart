@@ -6,31 +6,17 @@ class PressureNotifier
     extends StateNotifier<Map<DateTime, List<PressureItem>>> {
   PressureNotifier() : super({});
 
-  void add(DateTime dateTime, PressureItem pressureItem) {
-    if (state.isNotEmpty) {
-      state.forEach((key, value) {
-        if (key == dateTime) {
-          state[key] = [...?state[key], pressureItem];
-        } else {
-          state[key] = [pressureItem];
-        }
-      });
-    }
-  }
-
-  @visibleForTesting
-  void testAdd(DateTime dateTime, PressureItem pressureItem) {
+  void add({required DateTime dateTime, required PressureItem pressureItem}) {
     if (state.isNotEmpty) {
       bool isBreak = false;
       for (var key in state.keys) {
-        if(key == dateTime) {
+        if (key == dateTime) {
           state[key] = [...state[key]!, pressureItem];
-          print(state[key]);
           isBreak = true;
           break;
         }
       }
-      if(!isBreak) {
+      if (!isBreak) {
         state[dateTime] = [pressureItem];
       }
       // deep copy
@@ -43,7 +29,43 @@ class PressureNotifier
   }
 
   @visibleForTesting
-  void testClear() {
+  void testAdd(DateTime dateTime, PressureItem pressureItem) {
+    if (state.isNotEmpty) {
+      bool isBreak = false;
+      for (var key in state.keys) {
+        if (key == dateTime) {
+          state[key] = [...state[key]!, pressureItem];
+          print(state[key]);
+          isBreak = true;
+          break;
+        }
+      }
+      if (!isBreak) {
+        state[dateTime] = [pressureItem];
+      }
+      // deep copy
+      state = {...state};
+    } else {
+      state = {
+        dateTime: [pressureItem]
+      };
+    }
+  }
+
+  void clear(DateTime dateTime) {
+    if (state == null) {
+      return;
+    } else if (state[dateTime] == null) {
+      return;
+    }
+    if (state[dateTime]!.isNotEmpty) {
+      state[dateTime] = [];
+    }
+    state = {...state};
+  }
+
+  @visibleForTesting
+  void testClearAll() {
     state = {};
   }
 }
