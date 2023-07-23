@@ -29,7 +29,14 @@ class PressureNotifier
         }
       });
     } else {
-      state = {dateTime : [pressureItem]};
+      state = {
+        dateTime: [pressureItem]
+      };
     }
+  }
+
+  @visibleForTesting
+  void testClear() {
+    state = {};
   }
 }
