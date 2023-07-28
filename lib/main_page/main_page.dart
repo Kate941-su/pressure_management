@@ -5,9 +5,9 @@ import 'package:flutter_training/datetime/datetime_provider.dart';
 import 'package:flutter_training/main_page/calendar_item.dart';
 import 'package:flutter_training/pressure/pressure_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../pressure/bottom_navigation_bar_index_provider.dart';
 import '../pressure/pressure_item.dart';
 import 'package:uuid/uuid.dart';
-
 
 class MainPage extends ConsumerWidget {
   const MainPage({super.key});
@@ -17,6 +17,8 @@ class MainPage extends ConsumerWidget {
     final selectedDay = ref.watch(selectDayProvider);
     final focusedDay = ref.watch(focusDayProvider);
     final pressureItemMap = ref.watch(pressureProvider);
+    final bottomNavigationBarSelectedIndex =
+        ref.watch(bottomNavigationBarIndexProvider);
     return Column(
       children: [
         Row(
@@ -25,7 +27,8 @@ class MainPage extends ConsumerWidget {
               onPressed: () {
                 ref.read(pressureProvider.notifier).testAdd(
                     selectedDay,
-                    PressureItem(uuid: const Uuid().v4(),
+                    PressureItem(
+                        uuid: const Uuid().v4(),
                         maxPressure: 200,
                         minPressure: 100,
                         pulse: 90));
@@ -66,8 +69,11 @@ class MainPage extends ConsumerWidget {
               } else {
                 return [];
               }
-//              return mockedPressureItemsMap[date] ?? [];
             },
+            rangeSelectionMode: bottomNavigationBarSelectedIndex ==
+                    BottomNavigationBarIndexItem.dialog
+                ? RangeSelectionMode.toggledOn
+                : RangeSelectionMode.toggledOff,
             availableGestures: AvailableGestures.all,
             selectedDayPredicate: (day) => day == focusedDay,
             firstDay: DateTime.utc(2000, 1, 1),
@@ -82,7 +88,6 @@ class MainPage extends ConsumerWidget {
               ref.read(selectDayProvider.notifier).setDatetime(selectDay);
               ref.read(focusDayProvider.notifier).setDatetime(selectDay);
             }),
-
         Expanded(
           child: ListView.builder(
             itemCount: pressureItemMap[selectedDay]?.length,
@@ -91,39 +96,44 @@ class MainPage extends ConsumerWidget {
               final pressureItem = pressureItemMap[selectedDay]?[index];
               return pressureItem != null
                   ? Card(
-                child: ListTile(
-                  title: Column(
-                    children: [
-                      Text('max pressure : ${pressureItem.maxPressure
-                          .toString()}'),
-                      Text('min pressure : ${pressureItem.minPressure
-                          .toString()}'),
-                      Text('pulse : ${pressureItem.pulse.toString()}'),
-                      Text('uuid : ${pressureItem.uuid}'),
-                    ],
-                  ),
-                  trailing: FractionallySizedBox(
-                    widthFactor: 0.25,
-                    child: Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.restore_from_trash_rounded,),
-                          constraints: const BoxConstraints(),
-                          onPressed: () {
-                            ref.read(pressureProvider.notifier).delete(
-                                selectedDay, pressureItem.uuid!);
-                          },
+                      child: ListTile(
+                        title: Column(
+                          children: [
+                            Text(
+                                'max pressure : ${pressureItem.maxPressure.toString()}'),
+                            Text(
+                                'min pressure : ${pressureItem.minPressure.toString()}'),
+                            Text('pulse : ${pressureItem.pulse.toString()}'),
+                            Text('uuid : ${pressureItem.uuid}'),
+                          ],
                         ),
-                        IconButton(
-                          icon: Icon(Icons.edit,),
-                          constraints: const BoxConstraints(),
-                          onPressed: () {},
+                        trailing: FractionallySizedBox(
+                          widthFactor: 0.25,
+                          child: Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.restore_from_trash_rounded,
+                                ),
+                                constraints: const BoxConstraints(),
+                                onPressed: () {
+                                  ref
+                                      .read(pressureProvider.notifier)
+                                      .delete(selectedDay, pressureItem.uuid!);
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.edit,
+                                ),
+                                constraints: const BoxConstraints(),
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
+                      ),
+                    )
                   : null;
             },
           ),

@@ -5,4 +5,10 @@ final selectDayProvider = StateNotifierProvider<DatetimeNotifier, DateTime>(
     (ref) => DatetimeNotifier());
 
 final focusDayProvider = StateNotifierProvider<DatetimeNotifier, DateTime>(
-(ref) => DatetimeNotifier());
+    (ref) => DatetimeNotifier());
+
+final startlDayProvider = StateNotifierProvider<DatetimeNotifier, DateTime>(
+    (ref) => DatetimeNotifier());
+
+final endDayProvider = StateNotifierProvider<DatetimeNotifier, DateTime>(
+    (ref) => DatetimeNotifier());

@@ -1,6 +1,12 @@
-import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final bottomNavigationBarIndexProvider = StateProvider<int>((ref) {
-  return 0;
+enum BottomNavigationBarIndexItem {
+ home,
+ add,
+ dialog,
+}
+
+final bottomNavigationBarIndexProvider = StateProvider<BottomNavigationBarIndexItem>((ref) {
+  return BottomNavigationBarIndexItem.home;
 });

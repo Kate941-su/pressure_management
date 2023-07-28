@@ -14,29 +14,37 @@ void main() {
 class MyApp extends ConsumerWidget {
   MyApp({Key? key}) : super(key: key);
   final List pageList = [
-    MainPage(),
+    const MainPage(),
     PressureAddPage(),
-    PressureTrendPage(),
+    const PressureTrendPage(),
   ];
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bottomNavigationBarSelectedIndex = ref.watch(bottomNavigationBarIndexProvider);
+    final bottomNavigationBarSelectedIndex =
+        ref.watch(bottomNavigationBarIndexProvider);
     return MaterialApp(
       title: 'Pressure Management',
       home: Scaffold(
-        appBar: AppBar(title: Text('Pressure Management App'),),
-        body: pageList[bottomNavigationBarSelectedIndex],
+        appBar: AppBar(
+          title: const Text('Pressure Management App'),
+        ),
+        body: pageList[bottomNavigationBarSelectedIndex.index],
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: bottomNavigationBarSelectedIndex,
+          currentIndex: bottomNavigationBarSelectedIndex.index,
           onTap: (index) {
-            ref.read(bottomNavigationBarIndexProvider.notifier).state = index;
+            // int to enum type
+            ref.read(bottomNavigationBarIndexProvider.notifier).state =
+                BottomNavigationBarIndexItem.values[index];
           },
           showUnselectedLabels: false,
           selectedItemColor: Colors.red,
           unselectedItemColor: Colors.black,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month,),
+              icon: Icon(
+                Icons.calendar_month,
+              ),
               label: 'daily',
             ),
             BottomNavigationBarItem(
