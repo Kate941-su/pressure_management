@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/datetime/datetime_provider.dart';
+import 'package:flutter_training/pressure/pressure_provider.dart';
 import 'package:flutter_training/pressure_trend_page/pressure_trend_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -28,6 +29,9 @@ class PressureTrendPage extends HookConsumerWidget {
               onPressed: () {
                 print(startDay);
                 print(endDay);
+                print(ref
+                    .read(pressureProvider.notifier)
+                    .getListWithRange(startDay: startDay, endDay: endDay));
               },
               icon: const Icon(Icons.remove_red_eye))
         ],
