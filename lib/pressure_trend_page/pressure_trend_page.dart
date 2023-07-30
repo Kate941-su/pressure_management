@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/datetime/datetime_provider.dart';
 import 'package:flutter_training/pressure/pressure_provider.dart';
+import 'package:flutter_training/pressure_trend_page/pressure_line_graph.dart';
 import 'package:flutter_training/pressure_trend_page/pressure_trend_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -13,7 +14,7 @@ class PressureTrendPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final initialDayController = useTextEditingController();
     final finalDayController = useTextEditingController();
-    final startDay = ref.watch(startlDayProvider);
+    final startDay = ref.watch(startDayProvider);
     final endDay = ref.watch(endDayProvider);
     useEffect(() {
       return null;
@@ -21,6 +22,7 @@ class PressureTrendPage extends HookConsumerWidget {
     return Scaffold(
       body: Column(
         children: [
+          PressureLineGraph(startDay: startDay, endDay: endDay, ref: ref),
           _DailyTextFormField(
             textEditingController: initialDayController,
             label: '開始日',
@@ -42,7 +44,7 @@ class PressureTrendPage extends HookConsumerWidget {
                     .getPressureItemAverageWithRange(
                         startDay: startDay, endDay: endDay));
               },
-              icon: const Icon(Icons.panorama_fish_eye_rounded))
+              icon: const Icon(Icons.panorama_fish_eye_rounded)),
         ],
       ),
     );
