@@ -25,13 +25,9 @@ class MainPage extends ConsumerWidget {
           children: [
             IconButton(
               onPressed: () {
-                ref.read(pressureProvider.notifier).testAdd(
-                    selectedDay,
-                    PressureItem(
-                        uuid: const Uuid().v4(),
-                        maxPressure: 200,
-                        minPressure: 100,
-                        pulse: 90));
+                ref.read(pressureProvider.notifier).testRandomAdd(
+                      selectedDay,
+                    );
                 print(pressureItemMap);
               },
               icon: const Icon(Icons.add_circle_outline),

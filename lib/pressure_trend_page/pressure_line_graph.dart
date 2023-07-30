@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_training/pressure/pressure_item.dart';
 import 'package:flutter_training/pressure/pressure_provider.dart';
+import 'package:flutter_training/pressure_trend_page/pressure_trend_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class PressureLineGraph extends HookConsumerWidget {
   PressureLineGraph(
@@ -22,30 +24,64 @@ class PressureLineGraph extends HookConsumerWidget {
     useEffect(() {
       _tooltipBehavior = TooltipBehavior(enable: true);
     }, []);
-    final pressureItemMapAveragePerDayWithRange = ref
-        .watch(pressureProvider.notifier)
-        .getPressureItemMapAveragePerDayWithRange(
-            startDay: startDay, endDay: endDay);
+    final pressureItemMapAveragePerDayWithRange =
+        PressureTrendViewModel(ref: ref, context: context)
+            .getPressureItemMapAveragePerDayWithRange(
+                startDay: startDay, endDay: endDay);
     return Center(
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(),
-            // Chart title
-            title: ChartTitle(text: 'Half yearly sales analysis'),
-            // Enable legend
+            title: ChartTitle(text: 'pressure charts(max, min, pulse)'),
             legend: const Legend(isVisible: true),
-            // Enable tooltip
             tooltipBehavior: _tooltipBehavior,
             series: <LineSeries<PressureItem, String>>[
           LineSeries<PressureItem, String>(
               dataSource: <PressureItem>[
-                for (var pressureItem in pressureItemMapAveragePerDayWithRange.values)
+                for (var pressureItem
+                    in pressureItemMapAveragePerDayWithRange.values)
                   pressureItem
               ],
+
               /// second argument 'i' is count of item (0 origin)
               xValueMapper: (PressureItem pressureItem, i) => i.toString(),
-              yValueMapper: (PressureItem pressureItem, _) => pressureItem.maxPressure,
+              yValueMapper: (PressureItem pressureItem, _) =>
+                  pressureItem.maxPressure,
               // Enable data label
-              dataLabelSettings: const DataLabelSettings(isVisible: true))
+              dataLabelSettings: const DataLabelSettings(isVisible: true),
+            name: 'max pressure'
+          ),
+          LineSeries<PressureItem, String>(
+              dataSource: <PressureItem>[
+                for (var pressureItem
+                    in pressureItemMapAveragePerDayWithRange.values)
+                  pressureItem
+              ],
+
+              /// second argument 'i' is count of item (0 origin)
+              xValueMapper: (PressureItem pressureItem, i) => i.toString(),
+              yValueMapper: (PressureItem pressureItem, _) =>
+                  pressureItem.minPressure,
+              // Enable data label
+              dataLabelSettings: const DataLabelSettings(
+                  isVisible: true,
+                  labelPosition: ChartDataLabelPosition.inside),
+              name: 'min pressure'
+          ),
+          LineSeries<PressureItem, String>(
+              dataSource: <PressureItem>[
+                for (var pressureItem
+                    in pressureItemMapAveragePerDayWithRange.values)
+                  pressureItem
+              ],
+
+              /// second argument 'i' is count of item (0 origin)
+              xValueMapper: (PressureItem pressureItem, i) => i.toString(),
+              yValueMapper: (PressureItem pressureItem, _) =>
+                  pressureItem.pulse,
+              // Enable data label
+              dataLabelSettings: const DataLabelSettings(isVisible: true),
+              name: 'pulse'
+          ),
         ]));
   }
 }

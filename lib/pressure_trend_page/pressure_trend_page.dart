@@ -31,16 +31,16 @@ class PressureTrendPage extends HookConsumerWidget {
               onPressed: () {
                 print(startDay);
                 print(endDay);
-                print(ref
-                    .read(pressureProvider.notifier)
+                print(
+                    PressureTrendViewModel(ref: ref, context: context)
                     .getPressureMapWithRange(
                         startDay: startDay, endDay: endDay));
               },
               icon: const Icon(Icons.remove_red_eye)),
           IconButton(
               onPressed: () {
-                print(ref
-                    .read(pressureProvider.notifier)
+                print(
+                    PressureTrendViewModel(ref: ref, context: context)
                     .getPressureItemAverageWithRange(
                         startDay: startDay, endDay: endDay));
               },
