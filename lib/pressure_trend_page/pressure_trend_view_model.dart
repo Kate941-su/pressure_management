@@ -110,4 +110,18 @@ class PressureTrendViewModel {
     return newMap;
   }
 
+  List<String> getPrettyDateList({required Map<DateTime, PressureItem> pressureItemMap}) {
+    List<String> prettyDateList = [];
+    for (var datetime in pressureItemMap.keys) {
+      prettyDateList.add(getPrettyDate(datetime));
+    }
+    return prettyDateList;
+  }
+
+  String getPrettyDate(DateTime datetime) {
+    final month = datetime.month;
+    final day = datetime.day;
+    return "$month/$day";
+  }
+
 }

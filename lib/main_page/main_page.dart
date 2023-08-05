@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/datetime/datetime_provider.dart';
 import 'package:flutter_training/main_page/calendar_item.dart';
+import 'package:flutter_training/main_page/widget/pressure_item_list_tile.dart';
 import 'package:flutter_training/pressure/pressure_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../pressure/bottom_navigation_bar_index_provider.dart';
@@ -92,42 +93,11 @@ class MainPage extends ConsumerWidget {
               final pressureItem = pressureItemMap[selectedDay]?[index];
               return pressureItem != null
                   ? Card(
-                      child: ListTile(
-                        title: Column(
-                          children: [
-                            Text(
-                                'max pressure : ${pressureItem.maxPressure.toString()}'),
-                            Text(
-                                'min pressure : ${pressureItem.minPressure.toString()}'),
-                            Text('pulse : ${pressureItem.pulse.toString()}'),
-                            Text('uuid : ${pressureItem.uuid}'),
-                          ],
-                        ),
-                        trailing: FractionallySizedBox(
-                          widthFactor: 0.25,
-                          child: Row(
-                            children: [
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.restore_from_trash_rounded,
-                                ),
-                                constraints: const BoxConstraints(),
-                                onPressed: () {
-                                  ref
-                                      .read(pressureProvider.notifier)
-                                      .delete(selectedDay, pressureItem.uuid!);
-                                },
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.edit,
-                                ),
-                                constraints: const BoxConstraints(),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
-                        ),
+                      child: PressureItemListTile(
+                        maxPressure: pressureItem.maxPressure!,
+                        minPressure: pressureItem.minPressure!,
+                        pulse: pressureItem.pulse!,
+                        uuid: pressureItem.uuid!,
                       ),
                     )
                   : null;

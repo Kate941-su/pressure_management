@@ -16,6 +16,7 @@ class PressureTrendPage extends HookConsumerWidget {
     final finalDayController = useTextEditingController();
     final startDay = ref.watch(startDayProvider);
     final endDay = ref.watch(endDayProvider);
+    final pressureTrendViewModel = PressureTrendViewModel(ref: ref, context: context);
     useEffect(() {
       return null;
     }, [initialDayController, finalDayController]);
@@ -32,7 +33,7 @@ class PressureTrendPage extends HookConsumerWidget {
                 print(startDay);
                 print(endDay);
                 print(
-                    PressureTrendViewModel(ref: ref, context: context)
+                    pressureTrendViewModel
                     .getPressureMapWithRange(
                         startDay: startDay, endDay: endDay));
               },
@@ -40,7 +41,7 @@ class PressureTrendPage extends HookConsumerWidget {
           IconButton(
               onPressed: () {
                 print(
-                    PressureTrendViewModel(ref: ref, context: context)
+                    pressureTrendViewModel
                     .getPressureItemAverageWithRange(
                         startDay: startDay, endDay: endDay));
               },

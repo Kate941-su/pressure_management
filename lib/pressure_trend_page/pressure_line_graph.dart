@@ -28,6 +28,9 @@ class PressureLineGraph extends HookConsumerWidget {
         PressureTrendViewModel(ref: ref, context: context)
             .getPressureItemMapAveragePerDayWithRange(
                 startDay: startDay, endDay: endDay);
+    final prettyDateList = PressureTrendViewModel(ref: ref, context: context)
+        .getPrettyDateList(
+            pressureItemMap: pressureItemMapAveragePerDayWithRange);
     return Center(
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(),
@@ -43,13 +46,12 @@ class PressureLineGraph extends HookConsumerWidget {
               ],
 
               /// second argument 'i' is count of item (0 origin)
-              xValueMapper: (PressureItem pressureItem, i) => i.toString(),
+              xValueMapper: (PressureItem pressureItem, i) => prettyDateList[i],
               yValueMapper: (PressureItem pressureItem, _) =>
                   pressureItem.maxPressure,
               // Enable data label
               dataLabelSettings: const DataLabelSettings(isVisible: true),
-            name: 'max pressure'
-          ),
+              name: 'max pressure'),
           LineSeries<PressureItem, String>(
               dataSource: <PressureItem>[
                 for (var pressureItem
@@ -58,15 +60,14 @@ class PressureLineGraph extends HookConsumerWidget {
               ],
 
               /// second argument 'i' is count of item (0 origin)
-              xValueMapper: (PressureItem pressureItem, i) => i.toString(),
+              xValueMapper: (PressureItem pressureItem, i) => prettyDateList[i],
               yValueMapper: (PressureItem pressureItem, _) =>
                   pressureItem.minPressure,
               // Enable data label
               dataLabelSettings: const DataLabelSettings(
                   isVisible: true,
                   labelPosition: ChartDataLabelPosition.inside),
-              name: 'min pressure'
-          ),
+              name: 'min pressure'),
           LineSeries<PressureItem, String>(
               dataSource: <PressureItem>[
                 for (var pressureItem
@@ -75,13 +76,12 @@ class PressureLineGraph extends HookConsumerWidget {
               ],
 
               /// second argument 'i' is count of item (0 origin)
-              xValueMapper: (PressureItem pressureItem, i) => i.toString(),
+              xValueMapper: (PressureItem pressureItem, i) => prettyDateList[i],
               yValueMapper: (PressureItem pressureItem, _) =>
                   pressureItem.pulse,
               // Enable data label
               dataLabelSettings: const DataLabelSettings(isVisible: true),
-              name: 'pulse'
-          ),
+              name: 'pulse'),
         ]));
   }
 }
