@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/datetime/datetime_provider.dart';
 import 'package:flutter_training/main_page/calendar_item.dart';
+import 'package:flutter_training/main_page/widget/day_part.dart';
 import 'package:flutter_training/main_page/widget/pressure_item_list_tile.dart';
 import 'package:flutter_training/pressure/pressure_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -85,6 +86,7 @@ class MainPage extends ConsumerWidget {
               ref.read(selectDayProvider.notifier).setDatetime(selectDay);
               ref.read(focusDayProvider.notifier).setDatetime(selectDay);
             }),
+        DayPart(),
         Expanded(
           child: ListView.builder(
             itemCount: pressureItemMap[selectedDay]?.length,
