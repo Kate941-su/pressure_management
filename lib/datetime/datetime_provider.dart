@@ -8,7 +8,12 @@ final focusDayProvider = StateNotifierProvider<DatetimeNotifier, DateTime>(
     (ref) => DatetimeNotifier(dateTime: DateTime.now().toUtc()));
 
 final startDayProvider = StateNotifierProvider<DatetimeNotifier, DateTime>(
-    (ref) => DatetimeNotifier(dateTime: DateTime.now().toUtc().subtract(const Duration(days: 7))));
+    (ref) => DatetimeNotifier(
+        dateTime: DateTime.now().toUtc().subtract(const Duration(days: 7))));
 
 final endDayProvider = StateNotifierProvider<DatetimeNotifier, DateTime>(
     (ref) => DatetimeNotifier(dateTime: DateTime.now().toUtc()));
+
+final measurementTimeProvider =
+    StateNotifierProvider<DatetimeNotifier, DateTime>(
+        (ref) => DatetimeNotifier(dateTime: DateTime.now().toUtc()));

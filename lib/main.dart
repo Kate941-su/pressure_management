@@ -27,7 +27,8 @@ class MyApp extends ConsumerWidget {
       title: 'Pressure Management',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Pressure Management App'),
+          backgroundColor: Colors.black,
+          title: const Text('血圧手帳'),
         ),
         body: pageList[bottomNavigationBarSelectedIndex.index],
         bottomNavigationBar: BottomNavigationBar(

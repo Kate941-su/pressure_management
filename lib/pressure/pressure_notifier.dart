@@ -92,6 +92,7 @@ class PressureNotifier
       minPressure: rng.nextInt(60) + 40,
       pulse: rng.nextInt(50) + 50,
       uuid: const Uuid().v4(),
+      measurementTime: DateTime.now()
     );
     if (state.isNotEmpty) {
       bool isBreak = false;

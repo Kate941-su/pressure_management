@@ -20,6 +20,7 @@ mixin _$PressureItem {
   int? get maxPressure => throw _privateConstructorUsedError;
   int? get minPressure => throw _privateConstructorUsedError;
   int? get pulse => throw _privateConstructorUsedError;
+  DateTime? get measurementTime => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PressureItemCopyWith<PressureItem> get copyWith =>
@@ -32,7 +33,12 @@ abstract class $PressureItemCopyWith<$Res> {
           PressureItem value, $Res Function(PressureItem) then) =
       _$PressureItemCopyWithImpl<$Res, PressureItem>;
   @useResult
-  $Res call({String? uuid, int? maxPressure, int? minPressure, int? pulse});
+  $Res call(
+      {String? uuid,
+      int? maxPressure,
+      int? minPressure,
+      int? pulse,
+      DateTime? measurementTime});
 }
 
 /// @nodoc
@@ -52,6 +58,7 @@ class _$PressureItemCopyWithImpl<$Res, $Val extends PressureItem>
     Object? maxPressure = freezed,
     Object? minPressure = freezed,
     Object? pulse = freezed,
+    Object? measurementTime = freezed,
   }) {
     return _then(_value.copyWith(
       uuid: freezed == uuid
@@ -70,6 +77,10 @@ class _$PressureItemCopyWithImpl<$Res, $Val extends PressureItem>
           ? _value.pulse
           : pulse // ignore: cast_nullable_to_non_nullable
               as int?,
+      measurementTime: freezed == measurementTime
+          ? _value.measurementTime
+          : measurementTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -82,7 +93,12 @@ abstract class _$$_PressureItemCopyWith<$Res>
       __$$_PressureItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? uuid, int? maxPressure, int? minPressure, int? pulse});
+  $Res call(
+      {String? uuid,
+      int? maxPressure,
+      int? minPressure,
+      int? pulse,
+      DateTime? measurementTime});
 }
 
 /// @nodoc
@@ -100,6 +116,7 @@ class __$$_PressureItemCopyWithImpl<$Res>
     Object? maxPressure = freezed,
     Object? minPressure = freezed,
     Object? pulse = freezed,
+    Object? measurementTime = freezed,
   }) {
     return _then(_$_PressureItem(
       uuid: freezed == uuid
@@ -118,6 +135,10 @@ class __$$_PressureItemCopyWithImpl<$Res>
           ? _value.pulse
           : pulse // ignore: cast_nullable_to_non_nullable
               as int?,
+      measurementTime: freezed == measurementTime
+          ? _value.measurementTime
+          : measurementTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -126,7 +147,11 @@ class __$$_PressureItemCopyWithImpl<$Res>
 
 class _$_PressureItem implements _PressureItem {
   const _$_PressureItem(
-      {this.uuid, this.maxPressure, this.minPressure, this.pulse});
+      {this.uuid,
+      this.maxPressure,
+      this.minPressure,
+      this.pulse,
+      this.measurementTime});
 
   @override
   final String? uuid;
@@ -136,10 +161,12 @@ class _$_PressureItem implements _PressureItem {
   final int? minPressure;
   @override
   final int? pulse;
+  @override
+  final DateTime? measurementTime;
 
   @override
   String toString() {
-    return 'PressureItem(uuid: $uuid, maxPressure: $maxPressure, minPressure: $minPressure, pulse: $pulse)';
+    return 'PressureItem(uuid: $uuid, maxPressure: $maxPressure, minPressure: $minPressure, pulse: $pulse, measurementTime: $measurementTime)';
   }
 
   @override
@@ -152,12 +179,14 @@ class _$_PressureItem implements _PressureItem {
                 other.maxPressure == maxPressure) &&
             (identical(other.minPressure, minPressure) ||
                 other.minPressure == minPressure) &&
-            (identical(other.pulse, pulse) || other.pulse == pulse));
+            (identical(other.pulse, pulse) || other.pulse == pulse) &&
+            (identical(other.measurementTime, measurementTime) ||
+                other.measurementTime == measurementTime));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, uuid, maxPressure, minPressure, pulse);
+  int get hashCode => Object.hash(
+      runtimeType, uuid, maxPressure, minPressure, pulse, measurementTime);
 
   @JsonKey(ignore: true)
   @override
@@ -171,7 +200,8 @@ abstract class _PressureItem implements PressureItem {
       {final String? uuid,
       final int? maxPressure,
       final int? minPressure,
-      final int? pulse}) = _$_PressureItem;
+      final int? pulse,
+      final DateTime? measurementTime}) = _$_PressureItem;
 
   @override
   String? get uuid;
@@ -181,6 +211,8 @@ abstract class _PressureItem implements PressureItem {
   int? get minPressure;
   @override
   int? get pulse;
+  @override
+  DateTime? get measurementTime;
   @override
   @JsonKey(ignore: true)
   _$$_PressureItemCopyWith<_$_PressureItem> get copyWith =>

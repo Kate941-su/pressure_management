@@ -8,8 +8,7 @@ import 'package:flutter_training/main_page/widget/pressure_item_list_tile.dart';
 import 'package:flutter_training/pressure/pressure_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../pressure/bottom_navigation_bar_index_provider.dart';
-import '../pressure/pressure_item.dart';
-import 'package:uuid/uuid.dart';
+
 
 class MainPage extends ConsumerWidget {
   const MainPage({super.key});
@@ -100,6 +99,7 @@ class MainPage extends ConsumerWidget {
                         minPressure: pressureItem.minPressure!,
                         pulse: pressureItem.pulse!,
                         uuid: pressureItem.uuid!,
+                        measurementTime: pressureItem.measurementTime!,
                       ),
                     )
                   : null;

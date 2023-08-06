@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/datetime/datetime_provider.dart';
 
 import '../../pressure/pressure_provider.dart';
+import '../../util/util.dart';
 
 class PressureItemListTile extends ConsumerWidget {
   PressureItemListTile(
@@ -11,23 +12,33 @@ class PressureItemListTile extends ConsumerWidget {
       required this.minPressure,
       required this.pulse,
       required this.uuid,
+      required this.measurementTime,
       super.key});
 
   final int maxPressure;
   final int minPressure;
   final int pulse;
   final String uuid;
+  final DateTime measurementTime;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedDay = ref.watch(selectDayProvider);
     return ListTile(
+      leading: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          measurementTime.hour > 3 && measurementTime.hour < 15
+              ? const Icon(Icons.sunny)
+              : const Icon(Icons.nightlight),
+          Text(Util.getPrettyTime(measurementTime)),
+        ],
+      ),
       title: Column(
         children: [
-          Text('max pressure : ${maxPressure.toString()}'),
-          Text('min pressure : ${minPressure.toString()}'),
-          Text('pulse : ${pulse.toString()}'),
-          Text('uuid : $uuid'),
+          Text('血圧 : ${maxPressure.toString()}/${minPressure.toString()}'),
+          Text('脈拍 : ${pulse.toString()}'),
+//          Text('uuid : $uuid'),
         ],
       ),
       trailing: FractionallySizedBox(

@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:uuid/uuid.dart';
 part 'pressure_item.freezed.dart';
 
 
@@ -10,5 +9,6 @@ abstract class PressureItem with _$PressureItem {
     int? maxPressure,
     int? minPressure,
     int? pulse,
+    DateTime? measurementTime,
   }) = _PressureItem;
 }
