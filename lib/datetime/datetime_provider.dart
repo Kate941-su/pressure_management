@@ -17,3 +17,6 @@ final endDayProvider = StateNotifierProvider<DatetimeNotifier, DateTime>(
 final measurementTimeProvider =
     StateNotifierProvider<DatetimeNotifier, DateTime>(
         (ref) => DatetimeNotifier(dateTime: DateTime.now().toUtc()));
+
+// 初回起動時に日付が選択されたか判断するためのプロバイダ
+final hasSelectedProvider = StateProvider((ref) => false);

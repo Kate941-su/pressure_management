@@ -19,6 +19,7 @@ class MainPage extends ConsumerWidget {
     final pressureItemMap = ref.watch(pressureProvider);
     final bottomNavigationBarSelectedIndex =
         ref.watch(bottomNavigationBarIndexProvider);
+    final hasSelected = ref.watch(hasSelectedProvider);
     return Column(
       children: [
         Row(
@@ -89,8 +90,18 @@ class MainPage extends ConsumerWidget {
             onDaySelected: (selectDay, focusDay) {
               ref.read(selectDayProvider.notifier).setDatetime(selectDay);
               ref.read(focusDayProvider.notifier).setDatetime(selectDay);
+              if (!hasSelected) {
+                ref.read(hasSelectedProvider.notifier).state = true;
+              }
             }),
-        DayPart(),
+        Visibility(
+          child: const DayPart(),
+          visible: hasSelected,
+        ),
+        Visibility(
+          child: const Text('測定結果を追加するには日付を選択してください！'),
+          visible: !hasSelected,
+        ),
         Expanded(
           child: ListView.builder(
             itemCount: pressureItemMap[selectedDay]?.length,

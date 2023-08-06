@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/datetime/datetime_provider.dart';
 import 'package:flutter_training/main_page/main_page.dart';
 import 'package:flutter_training/pressure/bottom_navigation_bar_index_provider.dart';
 import 'package:flutter_training/pressure/pressure_provider.dart';
@@ -22,6 +23,7 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final hasSelected = ref.watch(hasSelectedProvider);
     useEffect(() {
       ref.read(pressureProvider.notifier).initialize();
     },[]);
@@ -38,9 +40,13 @@ class MyApp extends HookConsumerWidget {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: bottomNavigationBarSelectedIndex.index,
           onTap: (index) {
-            // int to enum type
-            ref.read(bottomNavigationBarIndexProvider.notifier).state =
-                BottomNavigationBarIndexItem.values[index];
+            /// TODO enumにする
+            if (!hasSelected && index == 1) {
+
+            } else {
+              ref.read(bottomNavigationBarIndexProvider.notifier).state =
+              BottomNavigationBarIndexItem.values[index];
+            }
           },
           showUnselectedLabels: false,
           selectedItemColor: Colors.red,
