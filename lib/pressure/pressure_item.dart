@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'pressure_item.freezed.dart';
 
+part 'pressure_item.freezed.dart';
+part 'pressure_item.g.dart';
 
 @freezed
 abstract class PressureItem with _$PressureItem {
@@ -11,4 +12,7 @@ abstract class PressureItem with _$PressureItem {
     int? pulse,
     DateTime? measurementTime,
   }) = _PressureItem;
+
+  factory PressureItem.fromJson(Map<String, dynamic> json) => _$PressureItemFromJson(json);
+
 }

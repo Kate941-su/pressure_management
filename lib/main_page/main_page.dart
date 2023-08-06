@@ -9,7 +9,6 @@ import 'package:flutter_training/pressure/pressure_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../pressure/bottom_navigation_bar_index_provider.dart';
 
-
 class MainPage extends ConsumerWidget {
   const MainPage({super.key});
 
@@ -50,6 +49,12 @@ class MainPage extends ConsumerWidget {
                 ref.read(pressureProvider.notifier).testClearAll();
               },
               icon: const Icon(Icons.escalator_warning),
+            ),
+            IconButton(
+              onPressed: () {
+                ref.read(pressureProvider.notifier).permanentlyShowCondition();
+              },
+              icon: const Icon(Icons.safety_check_sharp),
             ),
             Text(pressureItemMap[selectedDay] != null
                 ? pressureItemMap[selectedDay]!.length.toString()

@@ -28,24 +28,6 @@ class PressureTrendPage extends HookConsumerWidget {
             textEditingController: initialDayController,
             label: '開始日',
           ),
-          IconButton(
-              onPressed: () {
-                print(startDay);
-                print(endDay);
-                print(
-                    pressureTrendViewModel
-                    .getPressureMapWithRange(
-                        startDay: startDay, endDay: endDay));
-              },
-              icon: const Icon(Icons.remove_red_eye)),
-          IconButton(
-              onPressed: () {
-                print(
-                    pressureTrendViewModel
-                    .getPressureItemAverageWithRange(
-                        startDay: startDay, endDay: endDay));
-              },
-              icon: const Icon(Icons.panorama_fish_eye_rounded)),
         ],
       ),
     );
@@ -64,15 +46,14 @@ class _DailyTextFormField extends HookConsumerWidget {
     final pressureTrendViewModel =
         PressureTrendViewModel(ref: ref, context: context);
     return Container(
-        color: Colors.white,
         alignment: Alignment.center,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          OutlinedButton(
+          TextButton(
             // （2） ボタンを押した時に入力できるようにする
             onPressed: () {
               pressureTrendViewModel.openDateRange(context);
             },
-            child: const Icon(Icons.calendar_month),
+            child: const Text('表示期間を選択🗓'),
           ),
           // : （省略）
         ]));

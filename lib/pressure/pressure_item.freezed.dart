@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+PressureItem _$PressureItemFromJson(Map<String, dynamic> json) {
+  return _PressureItem.fromJson(json);
+}
+
 /// @nodoc
 mixin _$PressureItem {
   String? get uuid => throw _privateConstructorUsedError;
@@ -22,6 +26,7 @@ mixin _$PressureItem {
   int? get pulse => throw _privateConstructorUsedError;
   DateTime? get measurementTime => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PressureItemCopyWith<PressureItem> get copyWith =>
       throw _privateConstructorUsedError;
@@ -144,7 +149,7 @@ class __$$_PressureItemCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_PressureItem implements _PressureItem {
   const _$_PressureItem(
       {this.uuid,
@@ -152,6 +157,9 @@ class _$_PressureItem implements _PressureItem {
       this.minPressure,
       this.pulse,
       this.measurementTime});
+
+  factory _$_PressureItem.fromJson(Map<String, dynamic> json) =>
+      _$$_PressureItemFromJson(json);
 
   @override
   final String? uuid;
@@ -184,6 +192,7 @@ class _$_PressureItem implements _PressureItem {
                 other.measurementTime == measurementTime));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, uuid, maxPressure, minPressure, pulse, measurementTime);
@@ -193,6 +202,13 @@ class _$_PressureItem implements _PressureItem {
   @pragma('vm:prefer-inline')
   _$$_PressureItemCopyWith<_$_PressureItem> get copyWith =>
       __$$_PressureItemCopyWithImpl<_$_PressureItem>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_PressureItemToJson(
+      this,
+    );
+  }
 }
 
 abstract class _PressureItem implements PressureItem {
@@ -202,6 +218,9 @@ abstract class _PressureItem implements PressureItem {
       final int? minPressure,
       final int? pulse,
       final DateTime? measurementTime}) = _$_PressureItem;
+
+  factory _PressureItem.fromJson(Map<String, dynamic> json) =
+      _$_PressureItem.fromJson;
 
   @override
   String? get uuid;
