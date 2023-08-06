@@ -38,9 +38,17 @@ class PressureItemRepositoryPref implements PressureItemRepository {
   @override
   Map<DateTime, dynamic> decodeMap(String encodedMap) {
     Map<String, dynamic> decodedMap = json.decode(encodedMap);
-    Map<DateTime, dynamic> newMap = {};
+    Map<DateTime, List<PressureItem>> newMap = {};
     decodedMap.forEach((key, value) {
-      newMap[DateTime.parse(key)] = decodedMap[key];
+      List<PressureItem> list = [];
+      for (var element in value) {
+        list.add(PressureItem(uuid: element['uuid'],
+            maxPressure: element['maxPressure'],
+            minPressure: element['minPressure'],
+            pulse: element['pulse'],
+            measurementTime: DateTime.parse(element['measurementTime'])));
+      }
+      newMap[DateTime.parse(key)] = list;
     });
     return newMap;
   }

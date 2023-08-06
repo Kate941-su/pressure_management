@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/main_page/main_page.dart';
 import 'package:flutter_training/pressure/bottom_navigation_bar_index_provider.dart';
+import 'package:flutter_training/pressure/pressure_provider.dart';
 import 'package:flutter_training/pressure_add_page/pressure_add_page.dart';
 import 'package:flutter_training/pressure_trend_page/pressure_trend_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
 void main() {
   initializeDateFormatting('ja')
       .then((_) => runApp(ProviderScope(child: MyApp())));
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends HookConsumerWidget {
   MyApp({Key? key}) : super(key: key);
   final List pageList = [
     const MainPage(),
@@ -21,6 +22,9 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(() {
+      ref.read(pressureProvider.notifier).initialize();
+    },[]);
     final bottomNavigationBarSelectedIndex =
         ref.watch(bottomNavigationBarIndexProvider);
     return MaterialApp(

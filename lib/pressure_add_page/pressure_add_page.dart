@@ -59,8 +59,22 @@ class PressureAddPage extends HookConsumerWidget {
                           context: context,
                           builder: (BuildContext context) {
                             return const Dialog(
-                              child: Text('全てのアイテムを入力してください'),
-                            );
+                                  child: SizedBox(
+                                    width: 300,
+                                    height: 150,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.warning,
+                                          size: 64,
+                                          color: Colors.yellow,
+                                        ),
+                                        Text('全てのアイテムを入力してください'),
+                                      ],
+                                    ),
+                                  ),
+                                );
                           });
                     } else {
                       ref.read(pressureProvider.notifier).add(
@@ -72,12 +86,27 @@ class PressureAddPage extends HookConsumerWidget {
                               minPressure:
                                   int.parse(minPressureTextController.text),
                               pulse: int.parse(pulseTextController.text),
-                              measurementTime: PressureAddViewModel(ref: ref).getTime()));
+                              measurementTime:
+                                  PressureAddViewModel(ref: ref).getTime()));
                       await showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return const Dialog(
-                              child: Text('you put item'),
+                              child: SizedBox(
+                                width: 300,
+                                height: 150,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.check,
+                                      size: 64,
+                                      color: Colors.green,
+                                    ),
+                                    Text('測定結果を登録しました👍'),
+                                  ],
+                                ),
+                              ),
                             );
                           });
                     }
