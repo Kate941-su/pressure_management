@@ -34,7 +34,7 @@ class PressureLineGraph extends HookConsumerWidget {
     return Center(
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(),
-            title: ChartTitle(text: 'pressure charts(max, min, pulse)'),
+            title: ChartTitle(text: '血圧グラフ'),
             legend: const Legend(isVisible: true),
             tooltipBehavior: _tooltipBehavior,
             series: <LineSeries<PressureItem, String>>[
@@ -51,7 +51,7 @@ class PressureLineGraph extends HookConsumerWidget {
                   pressureItem.maxPressure,
               // Enable data label
               dataLabelSettings: const DataLabelSettings(isVisible: true),
-              name: 'max pressure'),
+              name: '最高血圧'),
           LineSeries<PressureItem, String>(
               dataSource: <PressureItem>[
                 for (var pressureItem
@@ -67,21 +67,21 @@ class PressureLineGraph extends HookConsumerWidget {
               dataLabelSettings: const DataLabelSettings(
                   isVisible: true,
                   labelPosition: ChartDataLabelPosition.inside),
-              name: 'min pressure'),
-          LineSeries<PressureItem, String>(
-              dataSource: <PressureItem>[
-                for (var pressureItem
-                    in pressureItemMapAveragePerDayWithRange.values)
-                  pressureItem
-              ],
-
-              /// second argument 'i' is count of item (0 origin)
-              xValueMapper: (PressureItem pressureItem, i) => prettyDateList[i],
-              yValueMapper: (PressureItem pressureItem, _) =>
-                  pressureItem.pulse,
-              // Enable data label
-              dataLabelSettings: const DataLabelSettings(isVisible: true),
-              name: 'pulse'),
+              name: '最低血圧'),
+          // LineSeries<PressureItem, String>(
+          //     dataSource: <PressureItem>[
+          //       for (var pressureItem
+          //           in pressureItemMapAveragePerDayWithRange.values)
+          //         pressureItem
+          //     ],
+          //
+          //     /// second argument 'i' is count of item (0 origin)
+          //     xValueMapper: (PressureItem pressureItem, i) => prettyDateList[i],
+          //     yValueMapper: (PressureItem pressureItem, _) =>
+          //         pressureItem.pulse,
+          //     // Enable data label
+          //     dataLabelSettings: const DataLabelSettings(isVisible: true),
+          //     name: '脈拍'),
         ]));
   }
 }

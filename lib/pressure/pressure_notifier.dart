@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -29,6 +30,11 @@ class PressureNotifier
         dateTime: [pressureItem]
       };
     }
+    state = {..._sortMap(state)};
+  }
+
+  Map<DateTime, List<PressureItem>> _sortMap(Map<DateTime, List<PressureItem>> map) {
+    return SplayTreeMap.from(map, (a, b) => a.compareTo(b));
   }
 
   void delete(DateTime dateTime, String uuid) {
@@ -114,6 +120,7 @@ class PressureNotifier
         dateTime: [pressureItem]
       };
     }
+    state = {..._sortMap(state)};
   }
 
   @visibleForTesting
