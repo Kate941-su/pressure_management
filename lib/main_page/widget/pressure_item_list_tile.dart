@@ -54,13 +54,13 @@ class PressureItemListTile extends ConsumerWidget {
                 ref.read(pressureProvider.notifier).delete(selectedDay, uuid);
               },
             ),
-            IconButton(
-              icon: const Icon(
-                Icons.edit,
-              ),
-              constraints: const BoxConstraints(),
-              onPressed: () {},
-            ),
+            // IconButton(
+            //   icon: const Icon(
+            //     Icons.edit,
+            //   ),
+            //   constraints: const BoxConstraints(),
+            //   onPressed: () {},
+            // ),
           ],
         ),
       ),

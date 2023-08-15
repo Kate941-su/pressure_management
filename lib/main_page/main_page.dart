@@ -8,6 +8,7 @@ import 'package:flutter_training/main_page/widget/pressure_item_list_tile.dart';
 import 'package:flutter_training/pressure/pressure_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../pressure/bottom_navigation_bar_index_provider.dart';
+import '../util/meta_data.dart';
 
 class MainPage extends ConsumerWidget {
   const MainPage({super.key});
@@ -22,45 +23,59 @@ class MainPage extends ConsumerWidget {
     final hasSelected = ref.watch(hasSelectedProvider);
     return Column(
       children: [
-        Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                ref.read(pressureProvider.notifier).testRandomAdd(
-                      selectedDay,
-                    );
-                print(pressureItemMap);
-              },
-              icon: const Icon(Icons.add_circle_outline),
-            ),
-            IconButton(
-              onPressed: () {
-                print(pressureItemMap);
-              },
-              icon: const Icon(Icons.remove_red_eye_outlined),
-            ),
-            IconButton(
-              onPressed: () {
-                ref.read(pressureProvider.notifier).clear(selectedDay);
-              },
-              icon: const Icon(Icons.restore_from_trash_outlined),
-            ),
-            IconButton(
-              onPressed: () {
-                ref.read(pressureProvider.notifier).testClearAll();
-              },
-              icon: const Icon(Icons.escalator_warning),
-            ),
-            IconButton(
-              onPressed: () {
-                ref.read(pressureProvider.notifier).permanentlyShowCondition();
-              },
-              icon: const Icon(Icons.safety_check_sharp),
-            ),
-            Text(pressureItemMap[selectedDay] != null
-                ? pressureItemMap[selectedDay]!.length.toString()
-                : 'null'),
-          ],
+        Visibility(
+          visible: !Flavor.isRelease,
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  ref.read(pressureProvider.notifier).testRandomAdd(
+                        selectedDay,
+                      );
+                  print(Flavor.isRelease);
+                },
+                icon: const Icon(Icons.question_mark),
+              ),
+              IconButton(
+                onPressed: () {
+                  ref.read(pressureProvider.notifier).testRandomAdd(
+                        selectedDay,
+                      );
+                  print(pressureItemMap);
+                },
+                icon: const Icon(Icons.add_circle_outline),
+              ),
+              IconButton(
+                onPressed: () {
+                  print(pressureItemMap);
+                },
+                icon: const Icon(Icons.remove_red_eye_outlined),
+              ),
+              IconButton(
+                onPressed: () {
+                  ref.read(pressureProvider.notifier).clear(selectedDay);
+                },
+                icon: const Icon(Icons.restore_from_trash_outlined),
+              ),
+              IconButton(
+                onPressed: () {
+                  ref.read(pressureProvider.notifier).testClearAll();
+                },
+                icon: const Icon(Icons.escalator_warning),
+              ),
+              IconButton(
+                onPressed: () {
+                  ref
+                      .read(pressureProvider.notifier)
+                      .permanentlyShowCondition();
+                },
+                icon: const Icon(Icons.safety_check_sharp),
+              ),
+              Text(pressureItemMap[selectedDay] != null
+                  ? pressureItemMap[selectedDay]!.length.toString()
+                  : 'null'),
+            ],
+          ),
         ),
         TableCalendar(
             calendarBuilders: CalendarBuilders(dowBuilder: (context, day) {
@@ -95,12 +110,12 @@ class MainPage extends ConsumerWidget {
               }
             }),
         Visibility(
-          child: const DayPart(),
           visible: hasSelected,
+          child: const DayPart(),
         ),
         Visibility(
-          child: const Text('測定結果を追加するには日付を選択してください！'),
           visible: !hasSelected,
+          child: const Text('測定結果を追加するには日付を選択してください！'),
         ),
         Expanded(
           child: ListView.builder(
