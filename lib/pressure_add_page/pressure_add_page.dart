@@ -169,7 +169,7 @@ class _PressureAddTickFiled extends HookConsumerWidget {
             onPressed: () async {
               await pressureAddViewModel.onPressedInputTime(context);
             },
-            child: Text('時刻入力'),
+            child: const Text('時刻入力'),
           ),
           Text(Util.getPrettyTime(measurementTime))
         ],
