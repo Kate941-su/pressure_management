@@ -8,9 +8,14 @@ import 'package:flutter_training/pressure_trend_page/pressure_trend_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter/services.dart';
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting('ja')
-      .then((_) => runApp(ProviderScope(child: MyApp())));
+      .then((_) =>  SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+  ]).then((_) => runApp(ProviderScope(child: MyApp()))));
 }
 
 class MyApp extends HookConsumerWidget {
